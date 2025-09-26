@@ -141,8 +141,15 @@
       z-index: 100;
       background: rgba(var(--panel), 0.8);
       backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border-bottom: 1px solid rgba(var(--ring), 0.3);
       padding: 1rem 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .nav.scrolled {
+      background: rgba(var(--panel), 0.95);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
 
     .nav-container {
@@ -182,15 +189,36 @@
       color: rgb(var(--subtext));
       text-decoration: none;
       font-weight: 500;
-      transition: color 0.2s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(135deg, rgb(var(--primary)), rgb(var(--accent)));
+      transition: width 0.3s ease;
     }
 
     .nav-links a:hover {
       color: rgb(var(--text));
     }
 
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
     .nav-links a.active {
       color: rgb(var(--primary));
+    }
+
+    .nav-links a.active::after {
+      width: 100%;
     }
 
     /* Main container */
@@ -219,11 +247,18 @@
       font-size: 3.5rem;
       font-weight: 700;
       margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, rgb(var(--text)), rgb(var(--primary)));
+      background: linear-gradient(135deg, rgb(var(--text)), rgb(var(--primary)), rgb(var(--accent)));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       line-height: 1.2;
+      animation: gradientShift 3s ease-in-out infinite;
+      background-size: 200% 200%;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
     .hero p {
@@ -247,11 +282,24 @@
       text-align: center;
       font-size: 2.5rem;
       font-weight: 600;
-      margin-bottom: 3rem;
-      background: linear-gradient(135deg, rgb(var(--text)), rgb(var(--subtext)));
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, rgb(var(--text)), rgb(var(--primary)), rgb(var(--accent)));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      animation: gradientShift 4s ease-in-out infinite;
+      background-size: 200% 200%;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 1.125rem;
+      color: rgb(var(--subtext));
+      margin-bottom: 3rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
     }
 
     .features-grid {
@@ -264,16 +312,56 @@
     .feature-card {
       background: rgba(var(--panel), 0.8);
       backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(var(--ring), 0.5);
       border-radius: 1rem;
       padding: 2rem;
       transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(var(--primary), 0.1), rgba(var(--accent), 0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: -1;
+    }
+
+    .feature-card:hover::before {
+      opacity: 1;
     }
 
     .feature-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(var(--primary), 0.3);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transform: translateY(-8px) scale(1.02);
+      border-color: rgba(var(--primary), 0.4);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(var(--primary), 0.1);
+    }
+
+    .feature-card {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .feature-card:nth-child(1) { animation-delay: 0.1s; }
+    .feature-card:nth-child(2) { animation-delay: 0.2s; }
+    .feature-card:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .feature-icon {
@@ -638,6 +726,7 @@
     .achievement-card {
       background: rgba(var(--panel), 0.8);
       backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(var(--ring), 0.5);
       border-radius: 1rem;
       padding: 2rem;
@@ -678,6 +767,7 @@
     .case-study-card {
       background: rgba(var(--panel), 0.8);
       backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(var(--ring), 0.5);
       border-radius: 1rem;
       padding: 2rem;
@@ -740,6 +830,7 @@
     .testimonial-card {
       background: rgba(var(--panel), 0.8);
       backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid rgba(var(--ring), 0.5);
       border-radius: 1rem;
       padding: 3rem;
